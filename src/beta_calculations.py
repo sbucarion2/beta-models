@@ -11,14 +11,21 @@ def get_pct_change(array: List[float]):
     return pct_change
 
 
-def get_beta_covariance_model(security_pricing, benchmark_pricing):
+def get_beta_covariance_model(security_pricing, benchmark_pricing, pct_change_passed=False):
     """
     Follows covariance beta model of cov(benchmark, security)/var(benchmark)
     Or known as cov(x,y)/var(x)
     """
 
-    security_pct_change = get_pct_change(security_pricing)
-    benchmark_pct_change = get_pct_change(benchmark_pricing)
+    if pct_change_passed is False:
+
+        security_pct_change = get_pct_change(security_pricing)
+        benchmark_pct_change = get_pct_change(benchmark_pricing)
+
+    else:
+
+        security_pct_change = security_pricing
+        benchmark_pct_change = benchmark_pricing
 
     covariance = np.cov(
             benchmark_pct_change, 
